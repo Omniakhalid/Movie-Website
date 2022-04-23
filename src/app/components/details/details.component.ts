@@ -1,0 +1,24 @@
+import { TrendingService } from './../../services/trending.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+ActivatedRoute
+@Component({
+  selector: 'app-details',
+  templateUrl: './details.component.html',
+  styleUrls: ['./details.component.scss']
+})
+export class DetailsComponent implements OnInit {
+  type:any;
+  id:any;
+  details:any;
+  constructor(private _ActivatedRoute:ActivatedRoute,private _TrendingService:TrendingService) { }
+
+  ngOnInit(): void {
+    this.type = this._ActivatedRoute.snapshot.paramMap.get('type');
+    this.id = this._ActivatedRoute.snapshot.paramMap.get('id');
+    this._TrendingService.getTrendingDetails(this.type,this.id).subscribe((data)=>{
+      this.details=data;      
+    })
+    }
+
+}
